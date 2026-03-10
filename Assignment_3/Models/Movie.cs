@@ -21,6 +21,7 @@ namespace Assignment_3.Models
         public string? Genre { get; set; }
 
         [Column(TypeName = "decimal(18, 2)")]
+        [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
         [Range(1, 100)]
