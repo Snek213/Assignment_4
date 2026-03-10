@@ -8,16 +8,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Assignment_3.Data;
 using Assignment_3.Models;
+using Assignment_4.Utilities;
 
 namespace Assignment_3.Pages.Movies
 {
     public class EditModel : PageModel
     {
         private readonly Assignment_3.Data.Assignment_4Context _context;
+        private readonly IWebHostEnvironment _env;
 
-        public EditModel(Assignment_3.Data.Assignment_4Context context)
+        public EditModel(Assignment_3.Data.Assignment_4Context context, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
 
         [BindProperty]
@@ -46,6 +49,16 @@ namespace Assignment_3.Pages.Movies
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+
+            if (HttpContext.Request.Form.Files.Count > 0)
+            {
+                var file = HttpContext.Request.Form.Files[0];
+                if (file.Length > 0)
+                {
+                    // Upload the new image and update the PictureUri
+                    Movie.PictureUri = PictureHelper.UploadNewImage(_env, file);
+                }
             }
 
             _context.Attach(Movie).State = EntityState.Modified;
