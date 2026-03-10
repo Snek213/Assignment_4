@@ -24,6 +24,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.Movie[0].Title)
             </th>
@@ -39,12 +40,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Movie[0].Rating)
             </th>
-            <th></th>
+            
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Movie) {
         <tr>
+            <td>
+                    @if (!string.IsNullOrEmpty(item.PictureUri))
+                    {
+                        <img src="@item.PictureUri" class="my-thumbnail-class" heigh="100" width="80">
+                    }
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>

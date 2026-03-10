@@ -7,6 +7,8 @@ namespace Assignment_3.Models
     {
         public int Id { get; set; }
 
+        public string? PictureUri { get; set; }
+
         [Required]
         public string? Title { get; set; }
 
